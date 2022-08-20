@@ -3,3 +3,17 @@ body
   background-image: url("background1.jpg");
   color: white;
 }
+
+#img {
+  width: 100%;
+}
+
+.eg_img {
+  display: inline-block;
+  width:48%;
+}
+
+.modal-dialog {
+  width:70%;
+}
+

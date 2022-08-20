@@ -20,15 +20,37 @@
 
     <div class="btn btn-primary" style="width:100%; border-radius: 0 !important;">
     <h1 style="float:left; margin:10px;">Ping Pong Game</h1>
-    <button style="float:right; margin: 10px;" class="btn btn-warning">Instructions</button>
+    <button style="float:right; margin: 10px;" class="btn btn-warning" data-toggle="modal" data-target="#md">Instructions</button>
     </div>
+    
+    <div id="md" class="modal fade">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button class="close" data-dismiss="modal" style="font-size: 24px;">&times;</button>
+          <h4 style="font-size: 32px;">Instructions</h4>
+        </div>
+        <div class="modal-body">
+          <img src="right.png" class="eg_img">
+          <img src="left.png" class="eg_img">
+          <img src="jump.png" class="eg_img">
+        </div>
+      </div>
+    </div>
+   </div>
+
     <br><br>
     <button class="btn btn-success">PLAY</button>
     <br><br>
-    <h3>Game Status: <span id="status"></span>
+    <h3>Game Status: <span id="status"></span><br><br>
+    <button class="btn btn-warning">RESTART GAME</button>
     </h3>
     <br>
-    <div id="game_console"></div>
+    <div id="canvas"></div>
+
+    <div id="footer" style="bottom:0; padding: 1px; position:sticky; width:100%; color:white; background-color: skyblue;">
+    <h3>Made by Akshat Goel || Game Credits: Mario</h3>
+    </div>
 
     </center>
 
