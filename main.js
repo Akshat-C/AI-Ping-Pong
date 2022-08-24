@@ -1,3 +1,9 @@
+img = "";
+noseX = 0;
+noseY = 0;
+
+paddle1X = 0;
+paddle1Y = 0;
 
 /*created by prashant shukla */
 
@@ -23,13 +29,23 @@ var ball = {
 
 function setup(){
   canvas =  createCanvas(700,600);
-  canvas.parent("canvas");
+  canvas.parent("canvas1");
+
+  vid = createCapture(VIDEO);
+  vid.size(700,500);
+  vid.parent("vid_output");
+  
+  poseNet = ml5.poseNet(vid, modelLoaded);
 }
 
+function modelLoaded() {
+  console.log("PoseNet has been loaded");
+}
 
 function draw(){
 
  background(0); 
+ //image(vid, 0, 0, 300, 300);
 
  fill("black");
  stroke("black");
