@@ -1,6 +1,9 @@
 img = "";
 noseX = 0;
 noseY = 0;
+l_wristS = 0;
+l_wristX = 0;
+l_wristY = 0;
 
 paddle1X = 0;
 paddle1Y = 0;
@@ -32,10 +35,25 @@ function setup(){
   canvas.parent("canvas1");
 
   vid = createCapture(VIDEO);
-  vid.size(700,500);
-  vid.parent("vid_output");
+  vid.hide();
+  vid.size(700,600);
   
   poseNet = ml5.poseNet(vid, modelLoaded);
+  poseNet.on("pose", gotPoses);
+}
+
+function gotPoses(results)
+{
+	if (results.length > 0)
+	{
+		console.log(results);
+		noseX = results[0].pose.nose.x;
+		noseY = results[0].pose.nose.y;
+
+    l_wristS= results[0].pose.score;
+    l_wristX = results[0].pose.leftWrist.x;
+    l_wristY = results[0].pose.leftWrist.y;
+	}
 }
 
 function modelLoaded() {
@@ -45,7 +63,14 @@ function modelLoaded() {
 function draw(){
 
  background(0); 
- //image(vid, 0, 0, 300, 300);
+ image(vid, 0, 0, 700,600);
+ 
+ if (l_wristS > 0.2)
+{
+  fill("red");
+  stroke("red");
+  circle(l_wristX, l_wristY, 50);
+}
 
  fill("black");
  stroke("black");
