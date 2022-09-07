@@ -8,6 +8,8 @@ l_wristY = 0;
 paddle1X = 0;
 paddle1Y = 0;
 
+gameStatus = "";
+
 /*created by prashant shukla */
 
 var paddle2 =10,paddle1=10;
@@ -30,6 +32,12 @@ var ball = {
     dy:3
 }
 
+function preload()
+{
+  ball_touched = loadSound("ball_touch_paddel.wav");
+  ball_missed = loadSound("missed.wav");
+}
+
 function setup(){
   canvas =  createCanvas(700,600);
   canvas.parent("canvas1");
@@ -40,6 +48,21 @@ function setup(){
   
   poseNet = ml5.poseNet(vid, modelLoaded);
   poseNet.on("pose", gotPoses);
+}
+
+function play_game()
+{
+   //Set the value of the status variable created in step 1 to “start”.
+ //Update the h3 tag which we have created inside index.html file in project 138 who has id “status” to "Game Is Loaded”.
+ gameStatus = "Start";
+ document.getElementById("status").innerHTML = "Game is Loaded";
+}
+
+function restart_game()
+{
+  pcscore = 0;
+  playerscore = 0;
+  loop();
 }
 
 function gotPoses(results)
@@ -62,7 +85,9 @@ function modelLoaded() {
 
 function draw(){
 
- background(0); 
+ if (gameStatus == "Start")
+ {
+  background(0); 
  image(vid, 0, 0, 700,600);
  
  if (l_wristS > 0.2)
@@ -87,7 +112,7 @@ function draw(){
    fill(250,0,0);
     stroke(0,0,250);
     strokeWeight(0.5);
-   paddle1Y = mouseY; 
+   paddle1Y = l_wristY; 
    rect(paddle1X,paddle1Y,paddle1,paddle1Height,100);
    
    
@@ -107,7 +132,9 @@ function draw(){
    
    //function move call which in very important
     move();
-}
+ }
+  }
+
 
 
 
@@ -160,6 +187,7 @@ function move(){
   if (ball.y >= paddle1Y&& ball.y <= paddle1Y + paddle1Height) {
     ball.dx = -ball.dx+0.5;
     playerscore++;
+    ball_missed.play();
   }
   else{
     pcscore++;
@@ -175,7 +203,7 @@ if(pcscore ==4){
     stroke("white");
     textSize(25)
     text("Game Over!☹☹",width/2,height/2);
-    text("Reload The Page!",width/2,height/2+30)
+    text("Press Restart to Play Again!",width/2,height/2+30)
     noLoop();
     pcscore = 0;
 }
